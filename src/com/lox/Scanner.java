@@ -137,7 +137,6 @@ public class Scanner {
         }
 
         Double numberLit = Double.parseDouble(source.substring(start, current));
-        System.out.println(numberLit + " " + peek());
         addToken(NUMBER, numberLit);
     }
 

@@ -1,0 +1,128 @@
+package com.lox;
+
+import java.util.Objects;
+
+public class Interpreter implements Expr.Visitor<Object> {
+
+    public void interpret(Expr expr) {
+        try {
+            Object value = evaluate(expr);
+            System.out.println(stringify(value));
+        } catch (RuntimeError e) {
+            Main.runtimeError(e);
+        }
+    }
+
+    private String stringify(Object value) {
+        if (value == null) return "nil";
+
+        if (value instanceof Double) {
+            String number = value.toString();
+            if (number.endsWith(".0")) {
+                return number.substring(0, number.length() - 2);
+            }
+            return number;
+        }
+        return value.toString();
+    }
+
+    @Override
+    public Object visitBinaryExpr(Expr.Binary expr) {
+        Object left = evaluate(expr.left);
+        Object right = evaluate(expr.right);
+
+        switch (expr.operator.tokenType) {
+            case MINUS:
+                checkNumberOperands(expr.operator, left, right);
+                return (Double)left - (Double)right;
+            case PLUS:
+                if (left instanceof String || right instanceof String)
+                    return stringify(left) + stringify(right);
+                if (left instanceof Double && right instanceof Double)
+                    return (Double)left + (Double)right;
+                throw new RuntimeError(expr.operator, "Operands must be numbers or strings");
+            case STAR:
+                checkNumberOperands(expr.operator, left, right);
+                return (Double)left * (Double)right;
+            case SLASH:
+                checkNumberOperands(expr.operator, left, right);
+                if ((Double) right == 0)
+                    throw new RuntimeError(expr.operator, "Divide by zero attempted.");
+                return (Double)left / (Double)right;
+            case GREATER:
+                return (Double)left > (Double)right;
+            case GREATER_EQUAL:
+                return (Double)left >= (Double)right;
+            case LESS:
+                return (Double)left < (Double) right;
+            case LESS_EQUAL:
+                return (Double)left <= (Double)right;
+            case BANG_EQUAL:
+                return !isEqual(left, right);
+            case EQUAL_EQUAL:
+                return isEqual(left, right);
+        }
+        return null;
+    }
+
+    private void checkNumberOperands(Token operator, Object left, Object right) {
+        if (left instanceof Double && right instanceof Double)
+            return;
+        throw new RuntimeError(operator, "Operands must be numbers.");
+    }
+
+    private boolean isEqual(Object a, Object b) {
+        return Objects.equals(a, b);
+    }
+
+    @Override
+    public Object visitGroupingExpr(Expr.Grouping expr) {
+        return evaluate(expr.expression);
+    }
+
+    @Override
+    public Object visitLiteralExpr(Expr.Literal expr) {
+        return expr.value;
+    }
+
+    @Override
+    public Object visitUnaryExpr(Expr.Unary expr) {
+        Object value = evaluate(expr.right);
+
+        switch (expr.operator.tokenType) {
+            case MINUS:
+                checkNumberOperand(expr.operator, value);
+                return - (Double) value;
+            case PLUS:
+                checkNumberOperand(expr.operator, value);
+                return (Double)value;
+            case BANG:
+                return !isTruthy(value);
+        }
+        return null;
+    }
+
+    private void checkNumberOperand(Token operator, Object value) {
+        if (value instanceof Double)
+            return;
+
+        throw new RuntimeError(operator, "Operand should be a number.");
+    }
+
+    private boolean isTruthy(Object value) {
+        return value != null && (value instanceof Boolean ? (Boolean) value : true);
+    }
+
+
+    private Object evaluate(Expr expr) {
+        return expr.accept(this);
+    }
+
+    static class RuntimeError extends RuntimeException {
+        Token token;
+        public RuntimeError(Token operator, String msg) {
+            super(msg);
+            token = operator;
+        }
+    }
+}

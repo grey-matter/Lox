@@ -78,7 +78,7 @@ public class Parser {
     }
 
     private Expr unary() {
-        if (match(PLUS, MINUS)) {
+        if (match(PLUS, MINUS, BANG)) {
             return new Expr.Unary(previous(), unary());
         }
 

@@ -12,6 +12,8 @@ import static com.lox.TokenType.EOF;
 
 public class Main {
     private static boolean hadError = false;
+    private static boolean hadRuntimeError = false;
+    private static final Interpreter interpreter = new Interpreter();
 
     public static void main(String[] args) throws IOException {
         if (args.length > 1) {
@@ -32,6 +34,7 @@ public class Main {
             System.out.println("> ");
             run(bf.readLine());
             hadError = false;
+            hadRuntimeError = false;
         }
     }
 
@@ -39,15 +42,12 @@ public class Main {
         Scanner sc = new Scanner(source);
         List<Token> tokens = sc.scanTokens();
 
-        for (Token token : tokens) {
-            System.out.println(token);
-        }
         Parser parser = new Parser(tokens);
         Expr expression = parser.parse();
 
         if (hadError)
             return;
-
+        interpreter.interpret(expression);
         System.out.println(new AstPrinter().print(expression));
     }
 
@@ -75,5 +75,12 @@ public class Main {
 
         if (hadError)
             System.exit(65);
+        if (hadRuntimeError)
+            System.exit(70);
+    }
+
+    public static void runtimeError(Interpreter.RuntimeError e) {
+        System.err.println(e.getMessage() + "\n[line " + e.token.line + "]");
+        hadRuntimeError = true;
     }
 }
