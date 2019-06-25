@@ -1,5 +1,6 @@
 package com.lox;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.lox.TokenType.*;
@@ -14,6 +15,13 @@ import static com.lox.TokenType.*;
                    | primary ;
     primary        → NUMBER | STRING | "false" | "true" | "nil"
                    | "(" expression ")" ;
+
+    program   → statement* EOF ;
+    statement → exprStmt
+              | printStmt ;
+
+    exprStmt  → expression ";" ;
+    printStmt → "print" expression ";" ;
 */
 
 public class Parser {
@@ -25,12 +33,53 @@ public class Parser {
         this.tokens = tokens;
     }
 
-    public Expr parse() {
+    public List<Stmt> parse() {
         try {
-            return expression();
+            return program();
         } catch (ParseError e) {
             return null;
         }
+    }
+
+    private List<Stmt> program() {
+        List<Stmt> stmts = new ArrayList<>();
+        while (!isAtEnd()) {
+            stmts.add(declaration());
+        }
+        consume(EOF, "Expected EOF marker.");
+        return stmts;
+    }
+
+    private Stmt declaration() {
+        if (match(VAR))
+            return varDeclaration();
+        return statement();
+    }
+
+    private Stmt varDeclaration() {
+        Token name = consume(IDENTIFIER, "Expected var name.");
+
+        Expr initializer = null;
+        if (match(EQUAL)) {
+            initializer = expression();
+        }
+    }
+
+    private Stmt statement() {
+        if (match(PRINT)) return printStmt();
+        return exprStmt();
+    }
+
+    private Stmt exprStmt() {
+        Expr value = expression();
+        consume(SEMICOLON, "Expected ; after value");
+        return new Stmt.Expression(value);
+    }
+
+    private Stmt printStmt() {
+        Expr value = expression();
+        consume(SEMICOLON, "Expected ; after value");
+        return new Stmt.Print(value);
     }
 
     private Expr expression() {

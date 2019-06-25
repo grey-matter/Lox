@@ -9,11 +9,16 @@ public class CodeGenerator {
     public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException {
 
 
-        defineAst(args[0], "Expr", Arrays.asList(
-                "Binary   : Expr left, Token operator, Expr right",
-                "Grouping : Expr expression",
-                "Literal  : Object value",
-                "Unary    : Token operator, Expr right"
+//        defineAst(args[0], "Expr", Arrays.asList(
+//                "Binary   : Expr left, Token operator, Expr right",
+//                "Grouping : Expr expression",
+//                "Literal  : Object value",
+//                "Unary    : Token operator, Expr right"
+//        ));
+
+        defineAst(args[0], "Stmt", Arrays.asList(
+                "Expression : Expr expression",
+                "Print      : Expr expression"
         ));
     }
 
