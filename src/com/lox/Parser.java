@@ -6,22 +6,37 @@ import java.util.List;
 import static com.lox.TokenType.*;
 
 /*
-    expression     → equality ;
+    program     → declaration* EOF ;
+
+    declaration → varDecl
+                | statement ;
+
+    statement → exprStmt
+          | printStmt
+          | block ;
+
+    block     → "{" declaration* "}" ;
+
+    varDecl → "var" IDENTIFIER ( "=" expression )? ";" ;
+
+    exprStmt → expression ";" ;
+    printStmt → "print" expression ";" ;
+
+    expression → assignment ;
+    assignment → IDENTIFIER "=" assignment
+               | equality ;
     equality       → comparison ( ( "!=" | "==" ) comparison )* ;
     comparison     → addition ( ( ">" | ">=" | "<" | "<=" ) addition )* ;
     addition       → multiplication ( ( "-" | "+" ) multiplication )* ;
     multiplication → unary ( ( "/" | "*" ) unary )* ;
     unary          → ( "!" | "-" ) unary
                    | primary ;
-    primary        → NUMBER | STRING | "false" | "true" | "nil"
-                   | "(" expression ")" ;
+    primary → "true" | "false" | "nil"
+        | NUMBER | STRING
+        | "(" expression ")"
+        | IDENTIFIER ;
 
-    program   → statement* EOF ;
-    statement → exprStmt
-              | printStmt ;
 
-    exprStmt  → expression ";" ;
-    printStmt → "print" expression ";" ;
 */
 
 public class Parser {
@@ -51,9 +66,14 @@ public class Parser {
     }
 
     private Stmt declaration() {
-        if (match(VAR))
-            return varDeclaration();
-        return statement();
+        try {
+            if (match(VAR))
+                return varDeclaration();
+            return statement();
+        } catch (ParseError e) {
+            synchronize();
+            return null;
+        }
     }
 
     private Stmt varDeclaration() {
@@ -63,9 +83,19 @@ public class Parser {
         if (match(EQUAL)) {
             initializer = expression();
         }
+        consume(SEMICOLON, "Expected ';' after variable declaration.");
+        return new Stmt.Var(name, initializer);
     }
 
     private Stmt statement() {
+        if (match(LEFT_BRACE)) {
+            List<Stmt> statements = new ArrayList<>();
+            while (!isAtEnd() && peek().tokenType != RIGHT_BRACE) {
+                statements.add(declaration());
+            }
+            consume(RIGHT_BRACE, "Expected matching '}', found '" + peek().lexeme + "'");
+            return new Stmt.Block(statements);
+        }
         if (match(PRINT)) return printStmt();
         return exprStmt();
     }
@@ -83,7 +113,19 @@ public class Parser {
     }
 
     private Expr expression() {
-        return equality();
+        return assignment();
+    }
+
+    private Expr assignment() {
+        Expr expr = equality();
+
+        if (match(EQUAL)) {
+            if (expr instanceof Expr.Variable) {
+                return new Expr.Assign(((Expr.Variable) expr).name, assignment());
+            }
+            throw error(previous(), "Invalid assignment target.");
+        }
+        return expr;
     }
 
     private Expr equality() {
@@ -147,6 +189,9 @@ public class Parser {
         if (match(NUMBER, STRING)) {
             return new Expr.Literal(previous().literal);
         }
+        if (match(IDENTIFIER)) {
+            return new Expr.Variable(previous());
+        }
         if (match(LEFT_PAREN)) {
             Expr expr = expression();
             consume(RIGHT_PAREN, "Expected ')' after expression");
@@ -162,7 +207,7 @@ public class Parser {
     }
 
     public void synchronize() {
-        advance();
+//        advance();
 
         while (!isAtEnd()) {
             if (previous().tokenType == SEMICOLON) return;
@@ -198,10 +243,10 @@ public class Parser {
         return tokens.get(current - 1);
     }
 
-    private void consume(TokenType tokenType, String msg) {
+    private Token consume(TokenType tokenType, String msg) {
         if (tokenType == peek().tokenType) {
             advance();
-            return;
+            return previous();
         }
 
         throw error(peek(), msg);

@@ -2,23 +2,30 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a8bf0c2f-ce73-4e41-9a49-cc063b1a784b" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Lox/com/lox/AstPrinter.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Lox/com/lox/Expr$Binary.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Lox/com/lox/Expr$Binary.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Lox/com/lox/Expr$Grouping.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Lox/com/lox/Expr$Grouping.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Lox/com/lox/Expr$Literal.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Lox/com/lox/Expr$Literal.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Lox/com/lox/Expr$Unary.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Lox/com/lox/Expr$Unary.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Lox/com/lox/Expr$Visitor.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Lox/com/lox/Expr$Visitor.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Lox/com/lox/Expr.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Lox/com/lox/Expr.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Lox/com/lox/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Lox/com/lox/Main.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Lox/com/lox/Parser$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Lox/com/lox/Parser$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Lox/com/lox/Parser$ParseError.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Lox/com/lox/Parser$ParseError.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Lox/com/lox/Parser.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Lox/com/lox/Parser.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Lox/com/lox/Scanner.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Lox/com/lox/Scanner.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Lox/com/lox/Token.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Lox/com/lox/Token.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Lox/com/lox/TokenType.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Lox/com/lox/TokenType.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Lox/com/tool/CodeGenerator.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Lox/com/tool/CodeGenerator.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/lox/AstPrinter.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/lox/Expr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/lox/Expr.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/lox/Interpreter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/lox/Interpreter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/lox/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/lox/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/lox/Parser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/lox/Parser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/lox/Token.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/lox/Token.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/tool/CodeGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tool/CodeGenerator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/lox/Stmt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/lox/Stmt.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -35,39 +42,10 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/lox/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="570">
-              <caret line="45" column="43" selection-start-line="45" selection-start-column="43" selection-end-line="45" selection-end-column="43" />
+            <state relative-caret-position="390">
+              <caret line="50" column="24" selection-start-line="50" selection-start-column="24" selection-end-line="50" selection-end-column="24" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1513#1514#0" expanded="true" />
-                <element signature="e#1550#1551#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/lox/Stmt.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="510">
-              <caret line="42" column="4" selection-start-line="42" selection-start-column="4" selection-end-line="42" selection-end-column="4" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/lox/Scanner.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2460">
-              <caret line="182" column="17" selection-start-line="182" selection-start-column="17" selection-end-line="182" selection-end-column="17" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#3423#3424#0" expanded="true" />
-                <element signature="e#3482#3483#0" expanded="true" />
-                <element signature="e#3521#3522#0" expanded="true" />
-                <element signature="e#3600#3601#0" expanded="true" />
-                <element signature="e#5003#5004#0" expanded="true" />
-                <element signature="e#5039#5040#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -76,41 +54,32 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/lox/Expr.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="720">
-              <caret line="58" column="25" selection-start-line="58" selection-start-column="25" selection-end-line="58" selection-end-column="25" />
-              <folding>
-                <element signature="e#1597#1598#0" expanded="true" />
-                <element signature="e#1622#1623#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="1140">
+              <caret line="93" column="19" selection-start-line="93" selection-start-column="19" selection-end-line="93" selection-end-column="19" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/lox/Parser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="309">
-              <caret line="35" column="31" selection-start-line="35" selection-start-column="31" selection-end-line="35" selection-end-column="31" />
+            <state relative-caret-position="630">
+              <caret line="96" column="45" lean-forward="true" selection-start-line="96" selection-start-column="45" selection-end-line="96" selection-end-column="45" />
               <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#2175#2176#0" expanded="true" />
-                <element signature="e#2208#2209#0" expanded="true" />
-                <element signature="e#4744#4745#0" expanded="true" />
-                <element signature="e#4790#4791#0" expanded="true" />
-                <element signature="e#4901#4902#0" expanded="true" />
-                <element signature="e#4944#4945#0" expanded="true" />
-                <element signature="e#4976#4977#0" expanded="true" />
-                <element signature="e#5022#5023#0" expanded="true" />
+                <element signature="e#3070#3071#0" expanded="true" />
+                <element signature="e#6091#6092#0" expanded="true" />
+                <element signature="e#6245#6246#0" expanded="true" />
+                <element signature="e#6323#6324#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/tool/CodeGenerator.java">
+        <entry file="file://$PROJECT_DIR$/src/com/lox/Environment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="18" column="20" selection-start-line="18" selection-start-column="20" selection-end-line="18" selection-end-column="20" />
+            <state relative-caret-position="307">
+              <caret line="29" column="36" selection-start-line="29" selection-start-column="36" selection-end-line="29" selection-end-column="36" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -121,31 +90,52 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/lox/Interpreter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="480">
-              <caret line="35" column="33" selection-start-line="35" selection-start-column="18" selection-end-line="35" selection-end-column="33" />
+            <state relative-caret-position="101">
+              <caret line="184" lean-forward="true" selection-start-line="184" selection-end-line="184" />
               <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#2785#2786#0" expanded="true" />
-                <element signature="e#2828#2829#0" expanded="true" />
-                <element signature="e#2901#2902#0" expanded="true" />
-                <element signature="e#2949#2950#0" expanded="true" />
-                <element signature="e#3020#3021#0" expanded="true" />
-                <element signature="e#3053#3054#0" expanded="true" />
-                <element signature="e#3938#3939#0" expanded="true" />
-                <element signature="e#3978#3979#0" expanded="true" />
+                <element signature="e#495#496#0" expanded="true" />
+                <element signature="e#533#534#0" expanded="true" />
+                <element signature="e#3682#3683#0" expanded="true" />
+                <element signature="e#3731#3732#0" expanded="true" />
+                <element signature="e#4311#4312#0" expanded="true" />
+                <element signature="e#4351#4352#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="15">
+              <caret line="1" column="4" lean-forward="true" selection-start-line="1" selection-start-column="4" selection-end-line="1" selection-end-column="4" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/lox/Stmt.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="397">
+              <caret line="55" column="45" selection-start-line="55" selection-start-column="45" selection-end-line="55" selection-end-column="45" />
+              <folding>
+                <element signature="e#972#973#0" expanded="true" />
+                <element signature="e#1014#1015#0" expanded="true" />
+                <element signature="e#1395#1396#0" expanded="true" />
+                <element signature="e#1323#1324#0" expanded="true" />
+                <element signature="e#1353#1354#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/lox/AstPrinter.java">
+        <entry file="file://$PROJECT_DIR$/src/com/tool/CodeGenerator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="4" column="21" selection-start-line="4" selection-start-column="21" selection-end-line="4" selection-end-column="21" />
+            <state relative-caret-position="1065">
+              <caret line="73" selection-start-line="73" selection-end-line="73" />
               <folding>
-                <element signature="e#112#113#0" expanded="true" />
-                <element signature="e#152#153#0" expanded="true" />
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -155,7 +145,7 @@
         <entry file="file://$PROJECT_DIR$/src/com/lox/Token.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="270">
-              <caret line="20" column="1" selection-start-line="20" selection-start-column="1" selection-end-line="20" selection-end-column="1" />
+              <caret line="20" selection-start-line="20" selection-end-line="20" />
               <folding>
                 <element signature="e#373#374#0" expanded="true" />
                 <element signature="e#436#437#0" expanded="true" />
@@ -194,6 +184,20 @@
       <find>accept(</find>
       <find>print</find>
       <find>EOF</find>
+      <find>primary</find>
+      <find>astprint</find>
+      <find>visitvarsr</find>
+      <find>case '\n'</find>
+      <find>vardecl</find>
+      <find>assignme</find>
+      <find>visitexpr</find>
+      <find>visitass</find>
+      <find>visitvar</find>
+      <find>visitvaria</find>
+      <find>declara</find>
+      <find>runtimeerr</find>
+      <find>visitblo</find>
+      <find>executebl</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -204,15 +208,17 @@
       <list>
         <option value="$PROJECT_DIR$/out/production/Lox/com/lox/TokenType.java" />
         <option value="$PROJECT_DIR$/src/com/lox/TokenType.java" />
-        <option value="$PROJECT_DIR$/src/com/lox/AstPrinter.java" />
         <option value="$PROJECT_DIR$/src/com/lox/Scanner.java" />
         <option value="$PROJECT_DIR$/src/com/tool/CodeGenerator.java" />
+        <option value="$PROJECT_DIR$/src/com/lox/Token.java" />
+        <option value="$PROJECT_DIR$/src/com/lox/AstPrinter.java" />
+        <option value="$PROJECT_DIR$/src/com/lox/Expr.java" />
+        <option value="$PROJECT_DIR$/src/com/lox/Environment.java" />
+        <option value="$PROJECT_DIR$/src/com/lox/Stmt.java" />
+        <option value="$PROJECT_DIR$/src/com/lox/Parser.java" />
         <option value="$PROJECT_DIR$/src/com/lox/Main.java" />
         <option value="$PROJECT_DIR$/src/com/lox/Interpreter.java" />
-        <option value="$PROJECT_DIR$/src/com/lox/Token.java" />
-        <option value="$PROJECT_DIR$/src/com/lox/Stmt.java" />
-        <option value="$PROJECT_DIR$/src/com/lox/Expr.java" />
-        <option value="$PROJECT_DIR$/src/com/lox/Parser.java" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -222,9 +228,11 @@
       <select />
     </treeState>
   </component>
-  <component name="ProjectFrameBounds" fullScreen="true">
-    <option name="width" value="1680" />
-    <option name="height" value="1050" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="77" />
+    <option name="y" value="47" />
+    <option name="width" value="1161" />
+    <option name="height" value="636" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -344,8 +352,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.Main" />
-        <item itemvalue="Application.CodeGenerator" />
         <item itemvalue="Application.AstPrinter" />
+        <item itemvalue="Application.CodeGenerator" />
       </list>
     </recent_temporary>
   </component>
@@ -379,10 +387,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1680" height="1050" extended-state="6" />
+    <frame x="67" y="25" width="1299" height="743" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2948718" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24181964" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -391,16 +399,16 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info id="Learn" order="7" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32857144" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.33061224" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32899022" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32736155" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.32899022" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32954547" />
-      <window_info anchor="bottom" id="Terminal" order="7" weight="0.32857144" />
+      <window_info anchor="bottom" id="Terminal" order="7" visible="true" weight="0.36970684" />
       <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="9" weight="0.15816326" />
-      <window_info anchor="bottom" id="Messages" order="10" weight="0.32857144" />
+      <window_info anchor="bottom" id="Messages" order="10" weight="0.32736155" />
       <window_info anchor="bottom" id="Docker" order="11" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="12" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -416,6 +424,24 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/lox/Parser.java</url>
+          <line>63</line>
+          <properties />
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/lox/Parser.java</url>
+          <line>73</line>
+          <properties />
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
@@ -440,87 +466,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/lox/Main.java">
+    <entry file="jar:///usr/local/jdk-12.0.1/lib/src.zip!/java.base/java/lang/Void.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="570">
-          <caret line="45" column="43" selection-start-line="45" selection-start-column="43" selection-end-line="45" selection-end-column="43" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1513#1514#0" expanded="true" />
-            <element signature="e#1550#1551#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="195">
+          <caret line="36" column="6" selection-start-line="35" selection-end-line="49" selection-end-column="1" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/lox/Stmt.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="42" column="4" selection-start-line="42" selection-start-column="4" selection-end-line="42" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/lox/AstPrinter.java" />
     <entry file="file://$PROJECT_DIR$/src/com/lox/Scanner.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2460">
-          <caret line="182" column="17" selection-start-line="182" selection-start-column="17" selection-end-line="182" selection-end-column="17" />
+        <state relative-caret-position="1185">
+          <caret line="89" column="25" selection-start-line="89" selection-start-column="25" selection-end-line="89" selection-end-column="25" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#3423#3424#0" expanded="true" />
             <element signature="e#3482#3483#0" expanded="true" />
             <element signature="e#3521#3522#0" expanded="true" />
             <element signature="e#3600#3601#0" expanded="true" />
-            <element signature="e#5003#5004#0" expanded="true" />
-            <element signature="e#5039#5040#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/lox/Expr.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="720">
-          <caret line="58" column="25" selection-start-line="58" selection-start-column="25" selection-end-line="58" selection-end-column="25" />
-          <folding>
-            <element signature="e#1597#1598#0" expanded="true" />
-            <element signature="e#1622#1623#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/tool/CodeGenerator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="18" column="20" selection-start-line="18" selection-start-column="20" selection-end-line="18" selection-end-column="20" />
+        <state relative-caret-position="1065">
+          <caret line="73" selection-start-line="73" selection-end-line="73" />
           <folding>
             <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/lox/Interpreter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="35" column="33" selection-start-line="35" selection-start-column="18" selection-end-line="35" selection-end-column="33" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2785#2786#0" expanded="true" />
-            <element signature="e#2828#2829#0" expanded="true" />
-            <element signature="e#2901#2902#0" expanded="true" />
-            <element signature="e#2949#2950#0" expanded="true" />
-            <element signature="e#3020#3021#0" expanded="true" />
-            <element signature="e#3053#3054#0" expanded="true" />
-            <element signature="e#3938#3939#0" expanded="true" />
-            <element signature="e#3978#3979#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/lox/AstPrinter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="21" selection-start-line="4" selection-start-column="21" selection-end-line="4" selection-end-column="21" />
-          <folding>
-            <element signature="e#112#113#0" expanded="true" />
-            <element signature="e#152#153#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -528,7 +501,7 @@
     <entry file="file://$PROJECT_DIR$/src/com/lox/Token.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
-          <caret line="20" column="1" selection-start-line="20" selection-start-column="1" selection-end-line="20" selection-end-column="1" />
+          <caret line="20" selection-start-line="20" selection-end-line="20" />
           <folding>
             <element signature="e#373#374#0" expanded="true" />
             <element signature="e#436#437#0" expanded="true" />
@@ -543,21 +516,79 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/lox/Expr.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1140">
+          <caret line="93" column="19" selection-start-line="93" selection-start-column="19" selection-end-line="93" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/lox/Stmt.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="397">
+          <caret line="55" column="45" selection-start-line="55" selection-start-column="45" selection-end-line="55" selection-end-column="45" />
+          <folding>
+            <element signature="e#972#973#0" expanded="true" />
+            <element signature="e#1014#1015#0" expanded="true" />
+            <element signature="e#1395#1396#0" expanded="true" />
+            <element signature="e#1323#1324#0" expanded="true" />
+            <element signature="e#1353#1354#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/lox/Parser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="309">
-          <caret line="35" column="31" selection-start-line="35" selection-start-column="31" selection-end-line="35" selection-end-column="31" />
+        <state relative-caret-position="630">
+          <caret line="96" column="45" lean-forward="true" selection-start-line="96" selection-start-column="45" selection-end-line="96" selection-end-column="45" />
+          <folding>
+            <element signature="e#3070#3071#0" expanded="true" />
+            <element signature="e#6091#6092#0" expanded="true" />
+            <element signature="e#6245#6246#0" expanded="true" />
+            <element signature="e#6323#6324#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/lox/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="50" column="24" selection-start-line="50" selection-start-column="24" selection-end-line="50" selection-end-column="24" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2175#2176#0" expanded="true" />
-            <element signature="e#2208#2209#0" expanded="true" />
-            <element signature="e#4744#4745#0" expanded="true" />
-            <element signature="e#4790#4791#0" expanded="true" />
-            <element signature="e#4901#4902#0" expanded="true" />
-            <element signature="e#4944#4945#0" expanded="true" />
-            <element signature="e#4976#4977#0" expanded="true" />
-            <element signature="e#5022#5023#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/lox/Interpreter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="101">
+          <caret line="184" lean-forward="true" selection-start-line="184" selection-end-line="184" />
+          <folding>
+            <element signature="e#495#496#0" expanded="true" />
+            <element signature="e#533#534#0" expanded="true" />
+            <element signature="e#3682#3683#0" expanded="true" />
+            <element signature="e#3731#3732#0" expanded="true" />
+            <element signature="e#4311#4312#0" expanded="true" />
+            <element signature="e#4351#4352#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/lox/Environment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="307">
+          <caret line="29" column="36" selection-start-line="29" selection-start-column="36" selection-end-line="29" selection-end-column="36" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" column="4" lean-forward="true" selection-start-line="1" selection-start-column="4" selection-end-line="1" selection-end-column="4" />
         </state>
       </provider>
     </entry>

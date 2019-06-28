@@ -5,8 +5,15 @@ import java.util.Objects;
 
 public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
 
+    private Environment environment = new Environment();
     public void interpret(List<Stmt> statements) {
         try {
+            if (statements.size() == 1) {
+                if (statements.get(0) instanceof Stmt.Expression) {
+                    System.out.println(stringify(evaluate(((Stmt.Expression)statements.get(0)).expression)));
+                    return;
+                }
+            }
             for (Stmt statement : statements) {
                 execute(statement);
             }
@@ -108,6 +115,18 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
         return null;
     }
 
+    @Override
+    public Object visitVariableExpr(Expr.Variable expr) {
+        return environment.get(expr.name);
+    }
+
+    @Override
+    public Object visitAssignExpr(Expr.Assign assign) {
+        Object value = evaluate(assign.value);
+        environment.assign(assign.name, value);
+        return value;
+    }
+
     private void checkNumberOperand(Token operator, Object value) {
         if (value instanceof Double)
             return;
@@ -134,6 +153,34 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
     public Void visitPrintStmt(Stmt.Print stmt) {
         System.out.println(stringify(evaluate(stmt.expression)));
         return null;
+    }
+
+    @Override
+    public Void visitVarStmt(Stmt.Var stmt) {
+        Object value = null;
+        if (stmt.initializer != null) {
+            value = evaluate(stmt.initializer);
+        }
+        environment.define(stmt.name.lexeme, value);
+        return null;
+    }
+
+    @Override
+    public Void visitBlockStmt(Stmt.Block stmt) {
+        executeBlock(stmt, new Environment(environment));
+        return null;
+    }
+
+    private void executeBlock(Stmt.Block stmt, Environment environment) {
+        Environment prev = this.environment;
+        try {
+            this.environment = environment;
+            for (Stmt statement : stmt.statements) {
+                execute(statement);
+            }
+        } finally {
+            this.environment = prev;
+        }
     }
 
     static class RuntimeError extends RuntimeException {
