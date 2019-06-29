@@ -13,7 +13,11 @@ import static com.lox.TokenType.*;
 
     statement → exprStmt
           | printStmt
-          | block | ifStmt;
+          | block
+          | ifStmt
+          | whileStmt;
+    whileStmt -> "while" "(" expression ")" statement ;
+
     ifStmt -> "if" "(" expression ")" statement ("else" statement)? ;
 
     block     → "{" declaration* "}" ;
@@ -25,7 +29,9 @@ import static com.lox.TokenType.*;
 
     expression → assignment ;
     assignment → IDENTIFIER "=" assignment
-               | equality ;
+               | logic_or ;
+    logic_or   → logic_and ( "or" logic_and )* ;
+    logic_and  → equality ( "and" equality )* ;
     equality       → comparison ( ( "!=" | "==" ) comparison )* ;
     comparison     → addition ( ( ">" | ">=" | "<" | "<=" ) addition )* ;
     addition       → multiplication ( ( "-" | "+" ) multiplication )* ;
@@ -89,6 +95,7 @@ public class Parser {
     }
 
     private Stmt statement() {
+        if (match(WHILE)) return whileStmt();
         if (match(IF)) return ifStmt();
         if (match(PRINT)) return printStmt();
 
@@ -102,6 +109,15 @@ public class Parser {
         }
 
         return exprStmt();
+    }
+
+    private Stmt whileStmt() {
+        consume(LEFT_PAREN, "Expected '(' " +
+                "after 'while'.");
+        Expr condition = expression();
+        consume(RIGHT_PAREN, "Expected ')' after condition.");
+
+        return new Stmt.While(condition, statement());
     }
 
     private Stmt ifStmt() {
@@ -131,13 +147,29 @@ public class Parser {
     }
 
     private Expr assignment() {
-        Expr expr = equality();
+        Expr expr = or();
 
         if (match(EQUAL)) {
             if (expr instanceof Expr.Variable) {
                 return new Expr.Assign(((Expr.Variable) expr).name, assignment());
             }
             throw error(previous(), "Invalid assignment target.");
+        }
+        return expr;
+    }
+
+    private Expr or() {
+        Expr expr = and();
+        while (match(OR)) {
+            expr = new Expr.Logical(expr, previous(), and());
+        }
+        return expr;
+    }
+
+    private Expr and() {
+        Expr expr = equality();
+        while (match(AND)) {
+            expr = new Expr.Logical(expr, previous(), equality());
         }
         return expr;
     }

@@ -10,6 +10,7 @@ abstract class Expr {
         R visitUnaryExpr(Unary expr);
         R visitVariableExpr(Variable expr);
         R visitAssignExpr(Assign assign);
+        R visitLogicalExpr(Logical expr);
     }
     abstract <T> T accept(Visitor<T> visitor);
     static class Binary extends Expr {
@@ -92,6 +93,22 @@ abstract class Expr {
         @Override
         <T> T accept(Visitor<T> visitor) {
             return visitor.visitAssignExpr(this);
+        }
+    }
+
+    static class Logical extends Expr{
+        final Token operator;
+        final Expr leftExpr, rightExpr;
+
+        public Logical(Expr leftExpr, Token operator, Expr rightExpr) {
+            this.operator = operator;
+            this.leftExpr = leftExpr;
+            this.rightExpr = rightExpr;
+        }
+
+        @Override
+        <T> T accept(Visitor<T> visitor) {
+            return visitor.visitLogicalExpr(this);
         }
     }
 }
