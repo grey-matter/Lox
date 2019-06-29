@@ -1,6 +1,7 @@
 package com.lox;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static com.lox.TokenType.*;
@@ -15,7 +16,11 @@ import static com.lox.TokenType.*;
           | printStmt
           | block
           | ifStmt
-          | whileStmt;
+          | whileStmt
+          | forStmt;
+
+    forStmt -> "for" "(" ( varDecl | exprStmt ) expression? ";" expression ")" statement
+
     whileStmt -> "while" "(" expression ")" statement ;
 
     ifStmt -> "if" "(" expression ")" statement ("else" statement)? ;
@@ -95,6 +100,7 @@ public class Parser {
     }
 
     private Stmt statement() {
+        if (match(FOR)) return forStmt();
         if (match(WHILE)) return whileStmt();
         if (match(IF)) return ifStmt();
         if (match(PRINT)) return printStmt();
@@ -109,6 +115,42 @@ public class Parser {
         }
 
         return exprStmt();
+    }
+
+    private Stmt forStmt() {
+        consume(LEFT_PAREN, "Expected '(' after 'for'.");
+
+        Stmt initializer = null;
+        if (!match(SEMICOLON)) {
+            if (match(VAR)) {
+                initializer = varDeclaration();
+            } else {
+                initializer = exprStmt();
+            }
+        }
+
+        Expr condition = new Expr.Literal(true);
+        if (!match(SEMICOLON)) {
+            condition = expression();
+            consume(SEMICOLON, "Expected ';'.");
+        }
+
+        Expr increment = null;
+        if (!match(RIGHT_PAREN)) {
+            increment = expression();
+            consume(RIGHT_PAREN, "Expected ')'.");
+        }
+
+        Stmt statement = statement();
+
+        if (increment != null)
+            statement = new Stmt.Block(Arrays.asList(statement, new Stmt.Expression(increment)));
+
+        statement = new Stmt.While(condition, statement);
+
+        if (initializer != null)
+            return new Stmt.Block(Arrays.asList(initializer, statement));
+        return statement;
     }
 
     private Stmt whileStmt() {
