@@ -49,7 +49,6 @@ public class Main {
             return;
 
         interpreter.interpret(statements);
-//        System.out.println(new AstPrinter().print(expression));
     }
 
     static void error(int line, String msg) {

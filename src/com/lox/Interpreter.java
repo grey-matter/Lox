@@ -8,12 +8,6 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
     private Environment environment = new Environment();
     public void interpret(List<Stmt> statements) {
         try {
-            if (statements.size() == 1) {
-                if (statements.get(0) instanceof Stmt.Expression) {
-                    System.out.println(stringify(evaluate(((Stmt.Expression)statements.get(0)).expression)));
-                    return;
-                }
-            }
             for (Stmt statement : statements) {
                 execute(statement);
             }
@@ -168,6 +162,17 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
     @Override
     public Void visitBlockStmt(Stmt.Block stmt) {
         executeBlock(stmt, new Environment(environment));
+        return null;
+    }
+
+    @Override
+    public Void visitIfStmt(Stmt.If stmt) {
+        Object conditionValue = evaluate(stmt.condition);
+        if (isTruthy(conditionValue)) {
+            execute(stmt.thenBranch);
+        } else if (stmt.elseBranch != null){
+            execute(stmt.elseBranch);
+        }
         return null;
     }
 

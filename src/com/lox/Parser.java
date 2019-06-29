@@ -13,7 +13,8 @@ import static com.lox.TokenType.*;
 
     statement → exprStmt
           | printStmt
-          | block ;
+          | block | ifStmt;
+    ifStmt -> "if" "(" expression ")" statement ("else" statement)? ;
 
     block     → "{" declaration* "}" ;
 
@@ -88,6 +89,9 @@ public class Parser {
     }
 
     private Stmt statement() {
+        if (match(IF)) return ifStmt();
+        if (match(PRINT)) return printStmt();
+
         if (match(LEFT_BRACE)) {
             List<Stmt> statements = new ArrayList<>();
             while (!isAtEnd() && peek().tokenType != RIGHT_BRACE) {
@@ -96,8 +100,18 @@ public class Parser {
             consume(RIGHT_BRACE, "Expected matching '}', found '" + peek().lexeme + "'");
             return new Stmt.Block(statements);
         }
-        if (match(PRINT)) return printStmt();
+
         return exprStmt();
+    }
+
+    private Stmt ifStmt() {
+        consume(LEFT_PAREN, "Expected '(' after 'if'.");
+        Expr condition = expression();
+        consume(RIGHT_PAREN, "Expected ')' after condition.");
+
+        Stmt thenBranch = statement();
+        if (match(ELSE)) return new Stmt.If(condition, thenBranch, statement());
+        return new Stmt.If(condition, thenBranch, null);
     }
 
     private Stmt exprStmt() {
