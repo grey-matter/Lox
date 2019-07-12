@@ -133,6 +133,11 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
         return evaluate(expr.rightExpr);
     }
 
+    @Override
+    public Object visitCallExpr(Expr.Call expr) {
+        return null;
+    }
+
     private void checkNumberOperand(Token operator, Object value) {
         if (value instanceof Double)
             return;

@@ -2,6 +2,8 @@ package com.lox;
 
 import com.lox.Token;
 
+import java.util.List;
+
 abstract class Expr {
     interface Visitor<R> {
         R visitBinaryExpr(Binary expr);
@@ -11,6 +13,7 @@ abstract class Expr {
         R visitVariableExpr(Variable expr);
         R visitAssignExpr(Assign assign);
         R visitLogicalExpr(Logical expr);
+        R visitCallExpr(Call expr);
     }
     abstract <T> T accept(Visitor<T> visitor);
     static class Binary extends Expr {
@@ -109,6 +112,23 @@ abstract class Expr {
         @Override
         <T> T accept(Visitor<T> visitor) {
             return visitor.visitLogicalExpr(this);
+        }
+    }
+
+    static class Call extends Expr{
+        Expr callee;
+        Token paren;
+        List<Expr>  arguments;
+
+        public Call(Expr callee, Token paren, List<Expr> arguments) {
+            this.callee = callee;
+            this.paren = paren;
+            this.arguments = arguments;
+        }
+
+        @Override
+        <T> T accept(Visitor<T> visitor) {
+            return visitor.visitCallExpr(this);
         }
     }
 }

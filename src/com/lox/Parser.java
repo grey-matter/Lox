@@ -41,12 +41,14 @@ import static com.lox.TokenType.*;
     comparison     → addition ( ( ">" | ">=" | "<" | "<=" ) addition )* ;
     addition       → multiplication ( ( "-" | "+" ) multiplication )* ;
     multiplication → unary ( ( "/" | "*" ) unary )* ;
-    unary          → ( "!" | "-" ) unary
-                   | primary ;
+    unary → ( "!" | "-" ) unary | call ;
+    call  → primary ( "(" arguments? ")" )* ;
+    arguments → expression ( "," expression )* ;
+
     primary → "true" | "false" | "nil"
-        | NUMBER | STRING
-        | "(" expression ")"
-        | IDENTIFIER ;
+    | NUMBER | STRING
+    | "(" expression ")"
+    | IDENTIFIER ;
 
 
 */
@@ -261,7 +263,29 @@ public class Parser {
             return new Expr.Unary(previous(), unary());
         }
 
-        return primary();
+        return call();
+    }
+
+    private Expr call() {
+        Expr expr = primary();
+        if (match(LEFT_PAREN)) {
+            Token rightParen = peek();
+            List<Expr> arguments = argument();
+            consume(RIGHT_PAREN, "Expected ')' after arguments.");
+            expr = new Expr.Call(expr, rightParen, arguments);
+        }
+        return expr;
+    }
+
+    private List<Expr> argument() {
+        List<Expr> arguments = new ArrayList<>();
+        do {
+            arguments.add(expression());
+            if (arguments.size() >= 8) {
+                error(peek(), "Cannot have more than 8 args for a method.");
+            }
+        } while (match(COMMA));
+        return arguments;
     }
 
     private Expr primary() {
