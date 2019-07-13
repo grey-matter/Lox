@@ -5,12 +5,15 @@ import java.util.Arrays;
 import java.util.List;
 
 import static com.lox.TokenType.*;
+import static jdk.javadoc.internal.doclets.formats.html.markup.HtmlStyle.block;
 
 /*
     program     → declaration* EOF ;
 
-    declaration → varDecl
+    declaration → funDecl | varDecl
                 | statement ;
+    funDecl -> "fun" IDENTIFIER "(" parameters? ")" block;
+    parameters -> IDENTIFIER ( "," IDENTIFIER )*    ;
 
     statement → exprStmt
           | printStmt
@@ -81,6 +84,8 @@ public class Parser {
 
     private Stmt declaration() {
         try {
+            if (match(FUN))
+                return funcDeclaration("function");
             if (match(VAR))
                 return varDeclaration();
             return statement();
@@ -88,6 +93,35 @@ public class Parser {
             synchronize();
             return null;
         }
+    }
+
+    private Stmt funcDeclaration(String kind) {
+        Token identifier = consume(IDENTIFIER, "Expected " + kind + " name.");
+
+        consume(LEFT_PAREN, "Expected '(' after " + kind + " name.");
+
+        List<Token> params = new ArrayList<>();
+        if (peek().tokenType != RIGHT_PAREN) {
+            do {
+                params.add(consume(IDENTIFIER, "Expected parameter name."));
+                if (params.size() >= 8)
+                    error(peek(), "Parameters cannot be more than 8");
+            } while (match(COMMA));
+        }
+        consume(RIGHT_PAREN, "Expected ')'.");
+
+        consume(LEFT_BRACE, "Expected '{' before " + kind + " body.");
+        Stmt.Block statements = blockStmt();
+        return new Stmt.Function(identifier, params, statements);
+    }
+
+    private Stmt.Block blockStmt() {
+        List<Stmt> statements = new ArrayList<>();
+        while (!isAtEnd() && peek().tokenType != RIGHT_BRACE) {
+            statements.add(declaration());
+        }
+        consume(RIGHT_BRACE, "Expected matching '}', found '" + peek().lexeme + "'");
+        return new Stmt.Block(statements);
     }
 
     private Stmt varDeclaration() {
@@ -106,15 +140,7 @@ public class Parser {
         if (match(WHILE)) return whileStmt();
         if (match(IF)) return ifStmt();
         if (match(PRINT)) return printStmt();
-
-        if (match(LEFT_BRACE)) {
-            List<Stmt> statements = new ArrayList<>();
-            while (!isAtEnd() && peek().tokenType != RIGHT_BRACE) {
-                statements.add(declaration());
-            }
-            consume(RIGHT_BRACE, "Expected matching '}', found '" + peek().lexeme + "'");
-            return new Stmt.Block(statements);
-        }
+        if (match(LEFT_BRACE)) return blockStmt();
 
         return exprStmt();
     }
@@ -319,7 +345,7 @@ public class Parser {
     }
 
     public void synchronize() {
-//        advance();
+//         advance();
 
         while (!isAtEnd()) {
             if (previous().tokenType == SEMICOLON) return;

@@ -1,11 +1,33 @@
 package com.lox;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
 
-    private Environment environment = new Environment();
+    final Environment globals = new Environment();
+    private Environment environment = globals;
+
+    public Interpreter() {
+        globals.define("clock", new LoxCallable() {
+            @Override
+            public Object call(Interpreter interpreter, List<Object> arguments) {
+                return (double) System.currentTimeMillis() / 1000;
+            }
+
+            @Override
+            public int arity() {
+                return 0;
+            }
+
+            @Override
+            public String toString() {
+                return "<native fn>";
+            }
+        });
+    }
+
     public void interpret(List<Stmt> statements) {
         try {
             for (Stmt statement : statements) {
@@ -135,7 +157,20 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
 
     @Override
     public Object visitCallExpr(Expr.Call expr) {
-        return null;
+        Object callee = evaluate(expr.callee);
+        List<Object> args = new ArrayList<>();
+
+        for (Expr arg : expr.arguments)
+            args.add(evaluate(arg));
+
+        if (callee instanceof LoxCallable) {
+            LoxCallable function = (LoxCallable) callee;
+            if (args.size() != function.arity())
+                throw new RuntimeError(expr.paren, "Expected " + function.arity() + " arguments, got " + args.size() + ".");
+            return function.call(this, args);
+        } else {
+            throw new RuntimeError(expr.paren, "Expression doesn't evaluate to a callable.");
+        }
     }
 
     private void checkNumberOperand(Token operator, Object value) {
@@ -199,6 +234,11 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
             execute(stmt.statement);
         }
         return null;
+    }
+
+    @Override
+    public Void visitFunctionExpr(Stmt.Function function) {
+//        environment.define(function.na);
     }
 
     private void executeBlock(Stmt.Block stmt, Environment environment) {
