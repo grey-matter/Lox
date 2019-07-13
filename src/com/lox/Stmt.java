@@ -10,7 +10,8 @@ abstract class Stmt {
         R visitBlockStmt(Block stmt);
         R visitIfStmt(If stmt);
         R visitWhileStmt(While stmt);
-        R visitFunctionExpr(Function function);
+        R visitFunctionStmt(Function function);
+        R visitReturnStmt(Return stmt);
     }
     abstract <T> void accept(Visitor<T> visitor);
     static class Expression extends Stmt {
@@ -111,7 +112,22 @@ abstract class Stmt {
 
         @Override
         <T> void accept(Visitor<T> visitor) {
-            visitor.visitFunctionExpr(this);
+            visitor.visitFunctionStmt(this);
+        }
+    }
+
+    static class Return extends Stmt {
+        final Expr value;
+        final Token keyword;
+
+        public Return(Expr expr, Token keyword) {
+            this.value = expr;
+            this.keyword = keyword;
+        }
+
+        @Override
+        <T> void accept(Visitor<T> visitor) {
+            visitor.visitReturnStmt(this);
         }
     }
 }

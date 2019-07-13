@@ -237,11 +237,17 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
     }
 
     @Override
-    public Void visitFunctionExpr(Stmt.Function function) {
-//        environment.define(function.na);
+    public Void visitFunctionStmt(Stmt.Function function) {
+        environment.define(function.name.lexeme, new LoxFunction(function));
+        return null;
     }
 
-    private void executeBlock(Stmt.Block stmt, Environment environment) {
+    @Override
+    public Void visitReturnStmt(Stmt.Return stmt) {
+        throw new Return(stmt.value == null ? null : evaluate(stmt.value));
+    }
+
+    public void executeBlock(Stmt.Block stmt, Environment environment) {
         Environment prev = this.environment;
         try {
             this.environment = environment;

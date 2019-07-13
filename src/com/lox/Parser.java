@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import static com.lox.TokenType.*;
-import static jdk.javadoc.internal.doclets.formats.html.markup.HtmlStyle.block;
 
 /*
     program     → declaration* EOF ;
@@ -20,8 +19,10 @@ import static jdk.javadoc.internal.doclets.formats.html.markup.HtmlStyle.block;
           | block
           | ifStmt
           | whileStmt
-          | forStmt;
+          | forStmt
+          | returnStmt;
 
+    returnStmt -> "return" expression? ";" ;
     forStmt -> "for" "(" ( varDecl | exprStmt ) expression? ";" expression ")" statement
 
     whileStmt -> "while" "(" expression ")" statement ;
@@ -111,11 +112,11 @@ public class Parser {
         consume(RIGHT_PAREN, "Expected ')'.");
 
         consume(LEFT_BRACE, "Expected '{' before " + kind + " body.");
-        Stmt.Block statements = blockStmt();
+        Stmt.Block statements = block();
         return new Stmt.Function(identifier, params, statements);
     }
 
-    private Stmt.Block blockStmt() {
+    private Stmt.Block block() {
         List<Stmt> statements = new ArrayList<>();
         while (!isAtEnd() && peek().tokenType != RIGHT_BRACE) {
             statements.add(declaration());
@@ -140,9 +141,19 @@ public class Parser {
         if (match(WHILE)) return whileStmt();
         if (match(IF)) return ifStmt();
         if (match(PRINT)) return printStmt();
-        if (match(LEFT_BRACE)) return blockStmt();
-
+        if (match(LEFT_BRACE)) return block();
+        if (match(RETURN)) return returnStmt();
         return exprStmt();
+    }
+
+    private Stmt returnStmt() {
+        Token keyword = previous();
+        Expr expr = null;
+        if (peek().tokenType != SEMICOLON) {
+            expr = expression();
+        }
+        consume(SEMICOLON, "Expected ';' after return statement.");
+        return new Stmt.Return(expr, keyword);
     }
 
     private Stmt forStmt() {
