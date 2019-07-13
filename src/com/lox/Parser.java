@@ -305,11 +305,14 @@ public class Parser {
 
     private Expr call() {
         Expr expr = primary();
-        if (match(LEFT_PAREN)) {
-            Token rightParen = peek();
-            List<Expr> arguments = argument();
-            consume(RIGHT_PAREN, "Expected ')' after arguments.");
-            expr = new Expr.Call(expr, rightParen, arguments);
+        while (match(LEFT_PAREN)) {
+            List<Expr> args = new ArrayList<>();
+
+            if (peek().tokenType != RIGHT_PAREN)
+                args = argument();
+
+            Token rightParen = consume(RIGHT_PAREN, "Expected ')'.");
+            expr = new Expr.Call(expr, rightParen, args);
         }
         return expr;
     }
