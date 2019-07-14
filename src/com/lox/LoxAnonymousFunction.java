@@ -2,11 +2,11 @@ package com.lox;
 
 import java.util.List;
 
-public class LoxFunction implements LoxCallable {
-    private final Stmt.Function declaration;
-    private final Environment closure;
+public class LoxAnonymousFunction implements LoxCallable{
+    final private Expr.AnonymousFunction declaration;
+    final private Environment closure;
 
-    public LoxFunction(Stmt.Function declaration, Environment closure) {
+    public LoxAnonymousFunction(Expr.AnonymousFunction declaration, Environment closure) {
         this.declaration = declaration;
         this.closure = closure;
     }
@@ -24,11 +24,6 @@ public class LoxFunction implements LoxCallable {
             return e.value;
         }
         return null;
-    }
-
-    @Override
-    public String toString() {
-        return "<fn " + declaration.name.lexeme + ">";
     }
 
     @Override

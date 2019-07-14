@@ -173,6 +173,11 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
         }
     }
 
+    @Override
+    public Object visitAnonymousFunctionExpr(Expr.AnonymousFunction anonymousFunction) {
+        return new LoxAnonymousFunction(anonymousFunction, environment);
+    }
+
     private void checkNumberOperand(Token operator, Object value) {
         if (value instanceof Double)
             return;
@@ -238,7 +243,7 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
 
     @Override
     public Void visitFunctionStmt(Stmt.Function function) {
-        environment.define(function.name.lexeme, new LoxFunction(function));
+        environment.define(function.name.lexeme, new LoxFunction(function, environment));
         return null;
     }
 

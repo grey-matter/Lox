@@ -52,7 +52,8 @@ import static com.lox.TokenType.*;
     primary → "true" | "false" | "nil"
     | NUMBER | STRING
     | "(" expression ")"
-    | IDENTIFIER ;
+    | IDENTIFIER
+    | "fun" "(" parameters? ")" block;
 
 
 */
@@ -349,6 +350,20 @@ public class Parser {
             consume(RIGHT_PAREN, "Expected ')' after expression");
             return new Expr.Grouping(expr);
         }
+        if (match(FUN)) {
+            consume(LEFT_PAREN, "Expected '('.");
+            List<Token> params = new ArrayList<>();
+            if (peek().tokenType != RIGHT_PAREN) {
+                do {
+                    params.add(consume(IDENTIFIER, "Expected function parameter."));
+                } while (match(COMMA));
+            }
+            consume(RIGHT_PAREN, "Expected ')' after function parameters.");
+
+            consume(LEFT_BRACE, "Expected '{' before function body");
+            Stmt.Block block = block();
+            return new Expr.AnonymousFunction(params, block);
+        }
 
         throw error(peek(), "Invalid token.");
     }
@@ -359,7 +374,7 @@ public class Parser {
     }
 
     public void synchronize() {
-//         advance();
+         advance();
 
         while (!isAtEnd()) {
             if (previous().tokenType == SEMICOLON) return;

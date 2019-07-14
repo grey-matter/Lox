@@ -14,6 +14,7 @@ abstract class Expr {
         R visitAssignExpr(Assign assign);
         R visitLogicalExpr(Logical expr);
         R visitCallExpr(Call expr);
+        R visitAnonymousFunctionExpr(AnonymousFunction anonymousFunction);
     }
     abstract <T> T accept(Visitor<T> visitor);
     static class Binary extends Expr {
@@ -129,6 +130,21 @@ abstract class Expr {
         @Override
         <T> T accept(Visitor<T> visitor) {
             return visitor.visitCallExpr(this);
+        }
+    }
+
+    static class AnonymousFunction extends Expr {
+        final List<Token> params;
+        final Stmt.Block body;
+
+        public AnonymousFunction(List<Token> params, Stmt.Block body) {
+            this.params = params;
+            this.body = body;
+        }
+
+        @Override
+        <T> T accept(Visitor<T> visitor) {
+            return visitor.visitAnonymousFunctionExpr(this);
         }
     }
 }
