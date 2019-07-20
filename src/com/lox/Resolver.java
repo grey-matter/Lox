@@ -9,6 +9,13 @@ public class Resolver implements Expr.Visitor<Void>, Stmt.Visitor<Void> {
     private final Interpreter interpreter;
     private final Stack<Map<String, Boolean>> scopes;
 
+    private enum FunctionType {
+        NONE,
+        FUNCTION
+    }
+
+    private FunctionType currentFunction = FunctionType.NONE;
+
     public Resolver(Interpreter interpreter) {
         this.interpreter = interpreter;
         scopes = new Stack<>();
@@ -89,7 +96,10 @@ public class Resolver implements Expr.Visitor<Void>, Stmt.Visitor<Void> {
             declare(param);
             define(param);
         }
+        FunctionType enclosingFunction = currentFunction;
+        currentFunction = FunctionType.FUNCTION;
         anonymousFunction.body.statements.forEach(stmt -> resolve(stmt));
+        currentFunction = enclosingFunction;
         endScope();
         return null;
     }
@@ -133,6 +143,9 @@ public class Resolver implements Expr.Visitor<Void>, Stmt.Visitor<Void> {
     private void declare(Token name) {
         if (scopes.isEmpty())
             return;
+        if (scopes.peek().containsKey(name.lexeme)) {
+            Main.error(name, "Variable with the same name already exists in this scope.");
+        }
         scopes.peek().put(name.lexeme, false);
     }
 
@@ -179,22 +192,28 @@ public class Resolver implements Expr.Visitor<Void>, Stmt.Visitor<Void> {
         declare(function.name);
         define(function.name);
 
-        resolveFunction(function);
+        resolveFunction(function, FunctionType.FUNCTION);
         return null;
     }
 
-    private void resolveFunction(Stmt.Function function) {
+    private void resolveFunction(Stmt.Function function, FunctionType type) {
         beginScope();
+        FunctionType enclosingFunction = currentFunction;
+        currentFunction = type;
         for (Token param : function.params) {
             declare(param);
             define(param);
         }
         function.body.statements.forEach(stmt -> resolve(stmt));
+        currentFunction = enclosingFunction;
         endScope();
     }
 
     @Override
     public Void visitReturnStmt(Stmt.Return stmt) {
+        if (currentFunction == FunctionType.NONE) {
+            Main.error(stmt.keyword, "Cannot return from top-level code.");
+        }
         if (stmt.value != null)
             resolve(stmt.value);
         return null;

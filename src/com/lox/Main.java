@@ -45,11 +45,17 @@ public class Main {
         Parser parser = new Parser(tokens);
         List<Stmt> statements = parser.parse();
 
+        // Syntax errors
         if (hadError)
             return;
 
         Resolver resolver = new Resolver(interpreter);
         resolver.resolve(statements);
+
+        // Resolution error
+        if (hadError)
+            return;
+
         interpreter.interpret(statements);
     }
 

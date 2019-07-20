@@ -1,11 +1,12 @@
-var fib = fun(n) {
+fun fib(n) {
     if (n <= 1) return 1;
     return fib(n - 1) + fib(n - 2);
-};
+}
 
+// return "sdfdSF";
 print "Start " + clock();
-for (var i = 1;i <= 20; i = i + 1)
-    print n = fib(i);
+for (var i = 1;i <= 8; i = i + 1)
+    print fib(i);
 
 print "End " + clock();
 
