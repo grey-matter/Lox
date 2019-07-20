@@ -1,13 +1,12 @@
 package com.lox;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
 
     final Environment globals = new Environment();
     private Environment environment = globals;
+    private Map<Expr, Integer> locals = new HashMap<>();
 
     public Interpreter() {
         globals.define("clock", new LoxCallable() {
@@ -133,13 +132,21 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
 
     @Override
     public Object visitVariableExpr(Expr.Variable expr) {
-        return environment.get(expr.name);
+        Integer dist = locals.get(expr);
+        if (dist != null) {
+            return environment.getAt(dist, expr.name);
+        }
+        return globals.get(expr.name);
     }
 
     @Override
     public Object visitAssignExpr(Expr.Assign assign) {
         Object value = evaluate(assign.value);
-        environment.assign(assign.name, value);
+        Integer dist = locals.get(assign);
+        if (dist != null) {
+            environment.assignAt(dist, assign.name, value);
+        } else
+            environment.assign(assign.name, value);
         return value;
     }
 
@@ -262,6 +269,10 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
         } finally {
             this.environment = prev;
         }
+    }
+
+    public void resolve(Expr expr, int i) {
+        this.locals.put(expr, i);
     }
 
     static class RuntimeError extends RuntimeException {
